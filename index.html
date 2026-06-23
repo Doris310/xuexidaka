@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学习打卡</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2720%27 fill=%27%232f6fed%27/%3E%3Ctext x=%2750%27 y=%2768%27 font-size=%2752%27 text-anchor=%27middle%27 fill=%27white%27%3E📚%3C/text%3E%3C/svg%3E"
+>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="学习打卡">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="HandheldFriendly" content="True">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%232f6fed'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='white'%3E📚%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">离线学习任务管理</p>
+        <h1>学习打卡</h1>
+      </div>
+      <div class="date-card" aria-label="当前日期">
+        <span id="weekday">今天</span>
+        <strong id="currentDate">--</strong>
+      </div>
+    </header>
+
+    <section class="timer-panel glass-card" aria-labelledby="timerTitle">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Pomodoro</p>
+          <h2 id="timerTitle">番茄钟</h2>
+        </div>
+        <span class="timer-status" id="timerStatus">未开始</span>
+      </div>
+
+      <div class="timer-screen" aria-live="polite">
+        <strong id="timerDisplay">25:00</strong>
+        <span id="timerTaskName">请选择任务后开始</span>
+      </div>
+
+      <div class="timer-controls" aria-label="番茄钟控制">
+        <button class="primary-button" id="timerStartButton" type="button">开始</button>
+       <button class="secondary-button" id="timerPauseButton" type="button" disabled>暂停</button>
+        <button class="secondary-button" id="timerFinishButton" type="button" disabled>完成</button>
+       <button class="secondary-button" id="timerResetButton" type="button">重置</button>
+      </div>
+    </section>
+
+    <main>
+      <section class="subject-panel glass-card" aria-labelledby="subjectTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Subjects</p>
+            <h2 id="subjectTitle">学科切换</h2>
+          </div>
+          <button class="icon-button" type="button" aria-label="新增学科">+</button>
+          <button class="secondary-button manage-subjects-btn" type="button" style="font-size:13px;min-height:36px;padding:0 10px">管理</button>
+        </div>
+        <div class="subject-tabs" id="subjectTabs" role="tablist" aria-label="学科列表"></div>
+      </section>
+
+      <section class="task-panel glass-card" aria-labelledby="taskTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Today</p>
+            <h2 id="taskTitle">今日任务</h2>
+          </div>
+          <button class="primary-button" type="button">新增任务</button>
+        </div>
+
+        <div class="today-overview">
+          <div>
+            <span>当前学科</span>
+            <strong id="activeSubjectName">全部学科</strong>
+          </div>
+          <div>
+            <span>今日进度</span>
+            <strong id="todayProgress">0 / 0</strong>
+          </div>
+        </div>
+
+        <div class="task-list" id="taskList" aria-live="polite"></div>
+      </section>
+
+      <section class="stats-grid" aria-label="今日统计数据">
+        <article class="stat-card glass-card">
+          <span>今日完成</span>
+          <strong id="completedCount">0</strong>
+          <p>已打卡任务数</p>
+        </article>
+        <article class="stat-card glass-card">
+          <span>预计时长</span>
+          <strong id="plannedMinutes">0 分钟</strong>
+          <p>今日任务总预计</p>
+        </article>
+        <article class="stat-card glass-card">
+          <span>学科数量</span>
+          <strong id="subjectCount">0</strong>
+          <p>当前可管理学科</p>
+        </article>
+        <article class="stat-card glass-card">
+          <span>本周摘要</span>
+          <strong id="weekSummary">待生成</strong>
+          <p>后续接入周总结</p>
+        </article>
+      </section>
+
+      <section class="report-panel glass-card" aria-labelledby="reportTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Reports</p>
+            <h2 id="reportTitle">统计报表</h2>
+          </div>
+        </div>
+
+        <div class="report-summary" aria-label="周月统计摘要">
+          <article class="report-card">
+            <span>本周学习时长</span>
+            <strong id="weekStudyMinutes">0 分钟</strong>
+            <p>周一至周日</p>
+          </article>
+          <article class="report-card">
+            <span>本周完成任务</span>
+            <strong id="weekCompletedTasks">0</strong>
+            <p>按打卡记录统计</p>
+          </article>
+          <article class="report-card">
+            <span>本月学习时长</span>
+            <strong id="monthStudyMinutes">0 分钟</strong>
+            <p>当前自然月</p>
+          </article>
+          <article class="report-card">
+            <span>本月完成任务</span>
+            <strong id="monthCompletedTasks">0</strong>
+            <p>按打卡记录统计</p>
+          </article>
+        </div>
+
+        <div class="chart-card" aria-label="近7天学习时长柱状图">
+          <div class="chart-heading">
+            <h3>近 7 天学习时长</h3>
+            <span>单位：分钟</span>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="sevenDayChart" height="180"></canvas>
+            <div class="chart-fallback" id="chartFallback" hidden></div>
+          </div>
+        </div>
+      </section>
+      </main>
+
+  <footer class="app-footer glass-card">
+    <div class="footer-tools">
+      <span class="footer-label">数据工具</span>
+      <button class="secondary-button" id="exportDataBtn" type="button">导出数据</button>
+      <button class="secondary-button" id="importDataBtn" type="button">导入数据</button>
+    </div>
+  </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="script.js"></script>
+  <aside class="pwa-hint" id="pwaHint" hidden>
+    <div class="pwa-hint-body">
+      <strong>📚 学习打卡</strong>
+      <p>添加到主屏幕以获得最佳体验</p>
+      <div class="pwa-hint-actions">
+        <button class="secondary-button" id="pwaDismiss" type="button">知道了</button>
+      </div>
+    </div>
+  </aside>
+</body>
+</html>
